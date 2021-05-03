@@ -9,8 +9,7 @@ class AddressController extends ActiveController {
 
     public $modelClass = AddressForm::class;
 
-    public function actions()
-    {
+    public function actions() {
         $actions = parent::actions();
         unset($actions['create']);
         return $actions;

@@ -3,11 +3,11 @@
 namespace app\models\query;
 
 /**
- * This is the ActiveQuery class for [[\app\models\Order]].
+ * This is the ActiveQuery class for [[\app\models\UserCard]].
  *
- * @see \app\models\Order
+ * @see \app\models\UserCard
  */
-class OrderQuery extends ActiveQuery
+class UserCardQuery extends ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class OrderQuery extends ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\models\Order[]|array
+     * @return \app\models\UserCard[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class OrderQuery extends ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\models\Order|array|null
+     * @return \app\models\UserCard|array|null
      */
     public function one($db = null)
     {

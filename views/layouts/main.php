@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Users', 'url' => ['/admin/user']],
             ['label' => 'Favorites', 'url' => ['/admin/favorite']],
             ['label' => 'Cart', 'url' => ['/admin/cart']],
+            ['label' => 'Orders', 'url' => ['/admin/order']]
         ],
     ]);
     NavBar::end();
