@@ -2,11 +2,11 @@
 
 namespace app\modules\api\controllers;
 
-use app\modules\api\resources\OrderResource;
+use app\modules\api\models\OrderForm;
 
 class OrderController extends ActiveController {
 
-    public $modelClass = OrderResource::class;
+    public $modelClass = OrderForm::class;
 
     public function actions()
     {

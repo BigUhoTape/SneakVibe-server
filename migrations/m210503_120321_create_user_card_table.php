@@ -18,7 +18,7 @@ class m210503_120321_create_user_card_table extends Migration
             'card_number' => $this->string()->notNull(),
             'cvc' => $this->string()->notNull(),
             'name' => $this->string()->notNull(),
-            'expired_date' => 'timestamp(0) with time zone',
+            'expired_date' => $this->date()->notNull(),
             'created_at' => 'timestamp(0) with time zone NOT NULL DEFAULT now()',
             'updated_at' => 'timestamp(0) with time zone'
         ]);

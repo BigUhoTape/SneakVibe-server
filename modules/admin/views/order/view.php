@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Order;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
@@ -23,11 +24,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
+            [
+                'label' => 'User ID',
+                'attribute' => 'user_id',
+                'format' => 'raw',
+                'value' => function (Order $model) {
+                    $user = $model->user;
+                    return 'ID: ' . $user->id . '<br>' . $user->name . ' ' . $user->last_name . '<br>' . $user->email;
+                }
+            ],
             'status',
             'card_number',
             'created_at',
             'updated_at',
+            [
+                'label' => 'Products',
+                'format' => 'raw',
+                'value' => function (Order $model) {
+                    $result = '';
+                    foreach ($model->products as $product) {
+                        $result = $result . 'ID: ' .  $product->product->id . '<br>Brand: ' . $product->product->brand . '<br>Model: ' . $product->product->model . '<br>Count: ' . $product->count . '<br>';
+                    }
+                    return $result;
+                }
+            ]
         ],
     ]) ?>
 

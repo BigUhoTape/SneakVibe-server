@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Order;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\admin\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,7 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'user_id',
+            [
+                'label' => 'User ID',
+                'attribute' => 'user_id',
+                'format' => 'raw',
+                'value' => function (Order $model) {
+                    $user = $model->user;
+                    return 'ID: ' . $user->id . '<br>' . $user->name . ' ' . $user->last_name . '<br>' . $user->email;
+                }
+            ],
             'status',
             'card_number',
             'created_at',

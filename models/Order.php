@@ -100,4 +100,12 @@ class Order extends \app\models\ActiveRecord
         }
         return $sum;
     }
+
+    public function getStatus () {
+        return [
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_CANCELED => 'Canceled',
+            self::STATUS_DELIVERED => 'Delivered'
+        ];
+    }
 }

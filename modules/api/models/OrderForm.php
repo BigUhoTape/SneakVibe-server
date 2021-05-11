@@ -2,12 +2,12 @@
 
 namespace app\modules\api\models;
 
-use app\models\Order;
 use app\models\OrderProduct;
 use app\models\UserCard;
 use app\modules\api\resources\CartResource;
+use app\modules\api\resources\OrderResource;
 
-class OrderForm extends Order {
+class OrderForm extends OrderResource {
 
     public $is_save_card;
     public $card_number;
@@ -19,11 +19,9 @@ class OrderForm extends Order {
     public function rules()
     {
         return [
-            ['is_save_card' => 'boolean'],
-            [['user_id', 'card_number', 'cvc', 'name', 'expired_date'], 'required'],
-            [['user_id'], 'integer'],
-            [['card_number', 'cvc', 'name'], 'string'],
-            ['created_at', 'safe']
+            [['is_save_card'], 'boolean'],
+            [['card_number', 'cvc', 'name', 'expired_date'], 'required'],
+            [['card_number', 'cvc', 'name'], 'string']
         ];
     }
 
@@ -49,20 +47,22 @@ class OrderForm extends Order {
                 $user_card->cvc = $this->cvc;
                 $user_card->name = $this->name;
                 $user_card->expired_date = $this->expired_date;
+                $user_card->save();
             }
 
-            $order = new Order();
+            $order = new OrderResource();
             $order->user_id = $user_id;
             $order->card_number = $this->card_number;
-            $order->status = Order::STATUS_ACTIVE;
+            $order->status = OrderResource::STATUS_ACTIVE;
             $order->save();
 
             $cart_products = CartResource::find()
                 ->andWhere(['user_id' => $user_id])
                 ->all();
             foreach ($cart_products as $cart_product) {
+                var_dump($cart_product->id);
                 $order_product = new OrderProduct();
-                $order_product->order_id = $user_id;
+                $order_product->order_id = $order->id;
                 $order_product->product_id = $cart_product->product_id;
                 $order_product->count = $cart_product->count;
                 $order_product->save();
@@ -70,6 +70,7 @@ class OrderForm extends Order {
             }
 
             $dbTransaction->commit();
+            return $order;
         } catch (\Throwable $e) {
             $dbTransaction->rollBack();
             throw $e;
