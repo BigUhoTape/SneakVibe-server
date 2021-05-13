@@ -2,3 +2,9 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Credentials true
+    Header always append Access-Control-Expose-Headers X-Pagination-Page-Count
+    Header always append Access-Control-Expose-Headers X-Pagination-Current-Page
+</IfModule>
