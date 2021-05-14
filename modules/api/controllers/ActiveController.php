@@ -25,7 +25,15 @@ abstract class ActiveController extends BaseActiveController {
         ];
         unset($behaviors['authenticator']);
         $behaviors['corsFilter'] = [
-            'class' => \yii\filters\Cors::className()
+            'class' => \yii\filters\Cors::className(),
+            'cors' => [
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Credentials' => null,
+                'Access-Control-Max-Age' => 86400,
+                'Access-Control-Expose-Headers' => ['*'],
+            ]
         ];
         $behaviors['authenticator'] = $auth;
         $behaviors['authenticator']['except'] = ['options'];
