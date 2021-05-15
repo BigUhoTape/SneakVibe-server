@@ -2,6 +2,7 @@
 
 namespace app\modules\api\controllers;
 
+use app\models\Order;
 use app\modules\api\models\OrderForm;
 use app\modules\api\resources\OrderResource;
 use yii\data\ActiveDataProvider;
@@ -29,11 +30,18 @@ class OrderController extends ActiveController {
                 'defaultOrder' => [ 'created_at' => SORT_DESC ]
             ],
             'pagination' => [
-                'pageSize' => 2
+                'pageSize' => 5
             ]
         ]);
 
         return $dataProvider;
+    }
+
+    public function actionUpdate ($id) {
+        $order = OrderResource::findOne($id);
+        $order->status = Order::STATUS_CANCELED;
+        $order->save();
+        return $order;
     }
 
 }
